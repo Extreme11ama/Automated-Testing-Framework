@@ -8,6 +8,7 @@ Features:
 - Checkout workflow testing
 - Screenshot capture on test failure
 - HTML test reporting
+- GitHub Actions CI/CD integration
 
 Testing target:
 https://www.saucedemo.com

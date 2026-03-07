@@ -12,6 +12,6 @@ def test_login_failure(page):
     login.loadSelf()
     login.login("locked_out_user", "secret_sauce")
 
-    error = page.locator("[data-test = 'error']").inner_text
+    error = page.locator("[data-test = 'error']").inner_text()
 
     assert "locked out" in error

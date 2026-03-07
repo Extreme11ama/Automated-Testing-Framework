@@ -9,4 +9,3 @@ def page():
         page = context.new_page()
         yield page
         browser.close
-        

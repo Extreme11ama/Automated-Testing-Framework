@@ -15,3 +15,16 @@ def test_login_failure(page):
     error = page.locator("[data-test = 'error']").inner_text()
 
     assert "locked out" in error
+
+def test_logout(page):
+    page.goto("https://www.saucedemo.com")
+
+    page.fill("#user-name", "standard_user")
+    page.fill("#password", "secret_sauce")
+    page.click("#login-button")
+
+    page.click("#react-burger-menu-btn")
+
+    page.click("#logout_sidebar_link")
+
+    assert "saucedemo.com" in page.url

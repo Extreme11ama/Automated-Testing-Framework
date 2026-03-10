@@ -1,5 +1,5 @@
 from pages.loginPage import LoginPage
-from pages.cartPage import CartPage
+from pages.inventoryPage import InventoryPage
 from pages.checkoutPage import CheckoutPage
 
 def test_checkout_empty_fields(page):
@@ -7,7 +7,7 @@ def test_checkout_empty_fields(page):
     login.load()
     login.login_as_standard_user()
 
-    cart = CartPage(page)
+    cart = InventoryPage(page)
     cart.add_item("sauce-labs-backpack")
 
     checkout = CheckoutPage(page)

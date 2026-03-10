@@ -27,6 +27,7 @@ following the Page Object Model design pattern.
 - Screenshot capture on test failure
 - HTML test reporting
 - GitHub Actions CI/CD integration
+- Bug documentation
 
 ## Tech Stack
 - Python

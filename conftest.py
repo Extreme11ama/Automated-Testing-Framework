@@ -8,7 +8,7 @@ def page():
         context = browser.new_context()
         page = context.new_page()
         yield page
-        browser.close
+        browser.close()
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -17,4 +17,4 @@ def pytest_runtest_makereport(item, call):
     report = outcome.get_result()
     if report.when == "call" and report.failed:
         page = item.funcargs["page"]
-        page.screenshot(path="failure.png")
+        page.screenshot(path=f"failure_{item.name}.png")

@@ -1,9 +1,9 @@
-def test_sort_products_az(page):
-    page.goto("https://www.saucedemo.com")
+from pages.loginPage import LoginPage
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+def test_sort_products_az(page):
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
     page.select_option(".product_sort_container", "az")
 
@@ -12,11 +12,9 @@ def test_sort_products_az(page):
     assert firstItem.startswith("Sauce Labs")
 
 def test_sort_products_za(page):
-    page.goto("https://www.saucedemo.com")
-
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
     page.select_option(".product_sort_container", "za")
 
@@ -25,11 +23,9 @@ def test_sort_products_za(page):
     assert first_item != ""
 
 def test_sort_price_low_high(page):
-    page.goto("https://www.saucedemo.com")
-
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
     page.select_option(".product_sort_container", "lohi")
 

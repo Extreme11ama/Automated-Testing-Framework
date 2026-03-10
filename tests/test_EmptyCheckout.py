@@ -1,16 +1,19 @@
+from pages.loginPage import LoginPage
+from pages.cartPage import CartPage
+from pages.checkoutPage import CheckoutPage
+
 def test_checkout_empty_fields(page):
-    page.goto("https://www.saucedemo.com")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    cart = CartPage(page)
+    cart.add_item("sauce-labs-backpack")
 
-    page.click("#add-to-cart-sauce-labs-backpack")
-    page.click(".shopping_cart_link")
-
-    page.click("#checkout")
-
-    page.click("#continue")
+    checkout = CheckoutPage(page)
+    checkout.go_to_cart()
+    checkout.start_checkout()
+    checkout.continue_checkout()
 
     error = page.locator("[data-test='error']").inner_text()
 
@@ -18,14 +21,13 @@ def test_checkout_empty_fields(page):
 
 
 def test_checkout_empty_cart(page):
-    page.goto("https://www.saucedemo.com")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
-
-    page.click(".shopping_cart_link")
-
-    page.click("#checkout")
+    checkout = CheckoutPage(page)
+    checkout.go_to_cart()
+    checkout.start_checkout()
+    checkout.continue_checkout()
 
     assert "checkout-step-one" in page.url

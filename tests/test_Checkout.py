@@ -1,19 +1,20 @@
+from pages.loginPage import LoginPage
+from pages.cartPage import CartPage
+from pages.checkoutPage import CheckoutPage
+
 def test_checkout(page):
-    page.goto("https://www.saucedemo.com")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    cart = CartPage(page)
+    cart.add_item("sauce-labs-backpack")
 
-    page.click("text=Add to cart")
-    page.click(".shopping_cart_link")
+    checkout = CheckoutPage(page)
+    checkout.go_to_cart()
+    checkout.start_checkout()
+    checkout.fill_details("test", "user", "12345")
+    checkout.continue_checkout()
+    checkout.finish_checkout()
 
-    page.click("#checkout")
-
-    page.fill("#first-name", "test")
-    page.fill("#last-name", "user")
-    page.fill("#postal-code", "12345")
-
-    page.click("#continue")
-
-    assert "checkout-step-two" in page.url
+    assert "checkout-complete" in page.url

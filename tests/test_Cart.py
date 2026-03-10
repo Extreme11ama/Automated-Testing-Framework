@@ -1,29 +1,24 @@
+from pages.loginPage import LoginPage
+from pages.cartPage import CartPage
+
 def test_add_item_to_cart(page):
-    page.goto("https://www.saucedemo.com")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    cart = CartPage(page)
+    cart.add_item("sauce-labs-backpack")
 
-    page.click("text=Add to cart")
-
-    cartBadge = page.locator(".shopping_cart_badge").inner_text()
-
-    assert cartBadge == "1"
+    assert cart.get_cart_count() == "1"
 
 def test_remove_item_from_cart(page):
-    page.goto("https://www.saucedemo.com")
+    login = LoginPage(page)
+    login.load()
+    login.login_as_standard_user()
 
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    cart = CartPage(page)
+    cart.add_item("sauce-labs-backpack")
+    assert cart.get_cart_count() == "1"
 
-    page.click("#add-to-cart-sauce-labs-backpack")
-
-    cart_badge = page.locator(".shopping_cart_badge").inner_text()
-    assert cart_badge == "1"
-
-    page.click("#remove-sauce-labs-backpack")
-
-    cart_badge = page.locator(".shopping_cart_badge")
-    assert cart_badge.count() == 0
+    cart.remove_item("sauce-labs-backpack")
+    assert cart.get_cart_count() == "0"
